@@ -12,6 +12,6 @@ type WaitingPayload struct {
 
 func (d *WaitingPayload) LongLastingOperation() error {
 	time.Sleep(d.WaitingTime)
-	println("d")
+	print("d")
 	return nil
 }
