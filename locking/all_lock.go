@@ -10,6 +10,10 @@ type allLockManager struct {
 	services []Service
 }
 
+func (lm *allLockManager) name() string {
+	return "AllLock"
+}
+
 func (lm *allLockManager) lock(rq LockServiceNow) {
 	lm.access.Lock()
 

@@ -8,6 +8,7 @@ import (
 
 type LockingManager interface {
 	lock(LockServiceNow)
+	name() string
 }
 
 type LockServiceNow struct {
@@ -26,10 +27,10 @@ func generateRequests(min, max time.Duration, services []Service) []LockServiceN
 
 	for i := 0; i < 100; i++ {
 		r := rand.Int63n(int64(max - min))
-		lockedCount := rand.Intn(len(services))
+		lockedCount := rand.Intn(10) + 1
 		thisRequestServices := make([]string, 0)
-		permutation := rand.Perm(lockedCount)
-		for i := range permutation {
+		permutation := rand.Perm(len(services))
+		for i := 0; i < lockedCount; i++ {
 			thisRequestServices = append(thisRequestServices, services[permutation[i]].id)
 		}
 		requests = append(requests, LockServiceNow{time: time.Duration(r), services: thisRequestServices})
